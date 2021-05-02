@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  users-service-db:
+    image: mongo
+    container_name: products-db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: db
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: secret
+    volumes:
+      # - productsdata:/data/db
+      - ./utils/mongo/products-db-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - '7000:27017'
+
+# volumes:
+#   productsdata: # docker volume create --name=productsdata
+#     external: true
